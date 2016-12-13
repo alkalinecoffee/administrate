@@ -17,6 +17,10 @@ module Administrate
         )
     end
 
+    def partial_exists?(path, name)
+      lookup_context.exists?(name, path, true)
+    end
+
     def svg_tag(asset, svg_id, options = {})
       svg_attributes = {
         "xlink:href".freeze => "#{asset_url(asset)}##{svg_id}",

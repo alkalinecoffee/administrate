@@ -19,11 +19,19 @@ from the associated resource class's dashboard.
 %>
 
 <% if field.resources.any? %>
-  <%= render(
-    "collection",
-    collection_presenter: field.associated_collection,
-    resources: field.resources
-  ) %>
+  <% if partial_exists?("admin/#{field.attribute.to_s}", 'collection') %>
+    <%= render(
+      "admin/#{field.attribute.to_s}/collection",
+      collection_presenter: field.associated_collection,
+      resources: field.resources
+    ) %>
+  <% else %>
+    <%= render(
+      "collection",
+      collection_presenter: field.associated_collection,
+      resources: field.resources
+    ) %>
+  <% end %>
 
   <% if field.more_than_limit? %>
     <span>
